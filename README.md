@@ -1,25 +1,74 @@
-# juegosVue
+# 🎮 Juegos en Vue (Mini Arcade)
 
-This template should help get you started developing with Vue 3 in Vite.
+Proyecto personal desarrollado con **Vue 3 y Vite**, cuyo objetivo es practicar y consolidar el uso de **Pinia**, **Vue Router** y **Tailwind CSS** mediante la creación de una pequeña plataforma de mini-juegos.
 
-## Recommended IDE Setup
+La aplicación funciona como un _mini arcade_, donde cada juego es un módulo independiente pero comparte una arquitectura común.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## 🧩 Juegos incluidos
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- 🪨 Piedra, Papel o Tijera
+- 🔢 Adivina el número
+- 🎡 Ruleta
+- ❌⭕ Tres en raya (Michi)
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## 🎯 Objetivos del proyecto
 
-## Project Setup
+- Practicar Vue 3 con Composition API
+- Aprender y aplicar una gestión de estado global con Pinia
+- Reutilizar componentes entre distintos juegos
+- Implementar una navegación clara con Vue Router
+- Diseñar una interfaz consistente usando Tailwind CSS
+- Construir una base escalable para añadir nuevos juegos
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- **Vue 3**
+- **Vite**
+- **Pinia**
+- **Vue Router**
+- **Tailwind CSS**
+- **JavaScript (ES6+)**
+
+---
+
+## 💻 Requisitos previos
+
+- Node.js (versión recomendada: 18 o superior)
+- npm
+- Navegador moderno (Chrome, Edge, Firefox, etc.)
+
+---
+
+## 🔧 Configuración recomendada del entorno
+
+### IDE
+
+- [Visual Studio Code](https://code.visualstudio.com/)
+- Extensión recomendada:
+  - [Vue - Official (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+
+> Se recomienda desactivar Vetur si está instalado.
+
+### Navegador
+
+- **Chromium (Chrome, Edge, Brave)**
+  - Vue.js Devtools
+  - Activar _Custom Object Formatter_ en DevTools
+- **Firefox**
+  - Vue.js Devtools
+  - Activar _Custom Object Formatter_
+
+---
+
+## 🚀 Instalación del proyecto
+
+Instalar dependencias:
 
 ```sh
 npm install
@@ -37,21 +86,33 @@ npm run dev
 npm run build
 ```
 
-### Instalar Tailwind en el proyecto
+### Inicializar tailwind
 
 ```sh
 npx tailwindcss@3 init -p
 ```
 
-### Cambiar el postcss.config.js
+### Configurar postcss.config.js
 
+```js
 export default {
-plugins: {
-'@tailwindcss/postcss': {},
-autoprefixer: {},
-},
+  plugins: {
+    '@tailwindcss/postcss': {},
+    autoprefixer: {},
+  },
 }
+```
 
-### Crear un style.css e importar tailwind // @import 'tailwindcss'; //
+### Crear archivo de estilos globales
 
-### En el main.js importar el style.css // import './style.css' //
+# Crear un archivo style.css (por ejemplo en src/):
+
+```css
+@import 'tailwindcss';
+```
+
+### Importar estilos en main.js
+
+```js
+import './style.css'
+```
