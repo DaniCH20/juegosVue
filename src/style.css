@@ -20,4 +20,27 @@
     @apply font-medium;
     color: #ff4a58;
   }
+  /* Clases reutilizables para navegación */
+  .nav-card {
+    @apply block text-center p-4 rounded-lg bg-white shadow-sm
+         hover:shadow-md hover:bg-gray-50
+         transition font-medium;
+  }
+
+  .nav-card-active {
+    @apply ring-2 ring-blue-500 bg-blue-50;
+  }
+}
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@layer utilities {
+  .animate-girar {
+    animation: girar 2s linear infinite;
+  }
 }

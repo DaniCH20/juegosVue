@@ -40,7 +40,7 @@
     </nav>
 
     <!-- Main content -->
-    <main class="max-w-5xl mx-auto px-6 py-8">
+    <main class="px-6 py-8">
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <component :is="Component" />
