@@ -4,6 +4,7 @@ import Ruleta from '../views/Ruleta.vue'
 import Michi from '../views/Michi.vue'
 import PPT from '../views/PPT.vue'
 import Adivina from '../views/Adivina.vue'
+import Sobrevive from '../views/Sobrevive.vue'
 
 const routes = [
   {
@@ -25,6 +26,10 @@ const routes = [
   {
     path: '/adivina',
     component: Adivina,
+  },
+  {
+    path: '/sobrevive',
+    component: Sobrevive,
   },
 ]
 

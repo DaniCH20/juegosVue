@@ -1,36 +1,36 @@
 @import 'tailwindcss';
 
 @layer components {
+  /* Botones */
   .btn-primary {
-    @apply text-white font-bold py-2 px-4 rounded shadow-md transition duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-pink-400/40;
+    @apply text-white font-bold py-2 px-4 rounded shadow-md transition duration-200
+           hover:-translate-y-0.5 hover:shadow-lg hover:shadow-pink-400/40;
     background-color: #eb5770;
   }
 
-  .header-footer {
-    @apply text-white py-4 px-6;
-    background-color: #4a7d8a;
-  }
-
+  /* Cards */
   .card-custom {
-    @apply rounded-lg shadow-lg p-6;
-    background-color: #f0f6ff;
+    @apply rounded-lg shadow-lg p-6 bg-[#f0f6ff];
   }
 
-  .text-btn-primary {
-    @apply font-medium;
-    color: #ff4a58;
+  /* Header / Footer */
+  .header-footer {
+    @apply text-white py-4 px-6 bg-[#4a7d8a];
   }
-  /* Clases reutilizables para navegación */
+
+  /* Navegación */
   .nav-card {
-    @apply block text-center p-4 rounded-lg bg-white shadow-sm
-         hover:shadow-md hover:bg-gray-50
-         transition font-medium;
+    @apply text-white font-medium px-4 py-2 rounded-lg
+           transition-colors w-full md:w-auto
+           hover:bg-white/20;
   }
 
   .nav-card-active {
-    @apply ring-2 ring-blue-500 bg-blue-50;
+    @apply bg-white text-[#3d6b79];
   }
 }
+
+/* Animaciones */
 @keyframes girar {
   from {
     transform: rotate(0deg);
@@ -39,6 +39,7 @@
     transform: rotate(360deg);
   }
 }
+
 @layer utilities {
   .animate-girar {
     animation: girar 2s linear infinite;

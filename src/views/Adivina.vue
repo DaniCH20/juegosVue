@@ -42,6 +42,7 @@
 </template>
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+const mobileMenuOpen = ref(false)
 const eleccionJugador = ref(null)
 const eleccionPC = ref(null)
 function adivinar() {

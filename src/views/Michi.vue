@@ -20,14 +20,15 @@
       </div>
 
       <div
-        v-if="resultado"
+        v-if="resultado !== 'Procesando...'"
         class="text-center text-3xl font-bold mt-6"
         :class="{
           'text-green-400': resultado.includes('Ganaste'),
           'text-red-400': resultado.includes('Perdiste'),
         }"
       >
-        {{ resultado }}
+        <h3>{{ resultado }}</h3>
+        <button @click="reiniciar()" id="button">Deseas volver a jugar</button>
       </div>
     </div>
   </div>
@@ -83,4 +84,7 @@ const resultado = computed(() => {
 
   return 'Procesando...'
 })
+function reiniciar() {
+  opciones.value = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+}
 </script>
