@@ -69,9 +69,29 @@ const letrasAdivinadas = ref([])
 const intentosFallidos = ref(1)
 const maxIntentos = 7
 const eleccionJugador = ref('')
-const palabras = ['otorrinolaringologia', 'perro', 'gato', 'casa', 'iguana']
 function jugar() {
-  const palabras = ['otorrinolaringologia', 'perro', 'gato', 'casa', 'iguana']
+  const palabras = [
+    'otorrinolaringologia',
+    'triceraptos',
+    'velocipastor',
+    'casa',
+    'abuelito',
+    'gallina',
+    'electrodomesticos',
+    'automovil',
+    'estudiasonso',
+    'pikachu',
+    'tiburon',
+    'microprocesador',
+    'charizard',
+    'megacaballero',
+    'leftfordead',
+    'fivenightsatfreddys',
+    'contratenme',
+    'chamba',
+    'peruesclave',
+    'ninachay',
+  ]
   palabraClave.value = palabras[Math.floor(Math.random() * palabras.length)]
   letrasAdivinadas.value = []
   intentosFallidos.value = 1
