@@ -1,62 +1,108 @@
 <template>
-    <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-        <div class="container mx-auto px-6 py-10">
-            <h1 class="text-4xl font-extrabold text-center mb-12">
-                Adivina la palabra secreta antes que te ahorquen
-            </h1>
-                <button v-if="jugando==true" @click="jugar()" :disabled="juegoTerminado">
-                    Jugar
-                </button>
+  <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div class="container mx-auto max-w-3xl px-4 sm:px-6 py-10 text-center">
+      <h1 class="text-4xl font-extrabold text-center mb-12">
+        Adivina la palabra secreta antes que te ahorquen
+      </h1>
+      <button
+        v-if="!jugando"
+        @click="jugar()"
+        class="mb-8 rounded-xl bg-indigo-600 px-8 py-3 text-lg font-semibold hover:bg-indigo-500 active:scale-95 transition focus:outline-none focus:ring-2 focus:ring-indigo-400"
+      >
+        Jugar
+      </button>
+      <div class="flex justify-center mb-8">
+        <img
+          :src="`../img/ahorcado/ahorcado${intentosFallidos}.png`"
+          :alt="palabraClave"
+          class="w-40 sm:w-52 md:w-64 object-contain"
+        />
+      </div>
+      <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8">
+        <span
+          v-for="(letra, index) in palabraMostrada"
+          :key="index"
+          class="w-10 sm:w-12 h-12 flex items-center justify-center border-b-4 border-slate-300 text-2xl sm:text-3xl font-bold"
+        >
+          {{ letra }}
+        </span>
+      </div>
 
+      <div
+        v-if="resultado"
+        class="mt-6 mb-8 text-3xl font-bold"
+        :class="{
+          'text-green-400': resultado.includes('Ganaste'),
+          'text-red-400': resultado.includes('Perdiste'),
+        }"
+      >
+        {{ resultado }}
+      </div>
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
+        <input
+          v-model="eleccionJugador"
+          maxlength="1"
+          type="text"
+          placeholder="Letra"
+          class="w-20 h-12 text-center text-xl font-bold rounded-lg border-2 border-slate-300 bg-white text-black focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        />
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
-                <div class="flex flex-col items-center">
-                    <h3 class="mb-4 font-semibold text-slate-300">Tú</h3>
-                    <h4>{{ eleccionJugador }}</h4>
-                </div>
-
-                <div class="flex flex-col items-center">
-                    <h3 class="mb-4 font-semibold text-slate-300">PC</h3>
-                    <h4>{{ eleccionPC }}</h4>
-                </div>
-            </div>
-
-            <div v-if="resultado" class="text-center text-3xl font-bold mt-6" :class="{
-                'text-green-400': resultado.includes('Ganaste'),
-                'text-red-400': resultado.includes('Perdiste'),
-            }">
-                {{ resultado }}
-            </div>
-            <div class="flex justify-center gap-12 mb-12">
-                <input type="text" id="caracter"  v-model="eleccionJugador" />
-                <button @click="adivinar" class="group flex flex-col items-center transition hover:scale-110">
-                    Enviar
-                </button>
-            </div>
-        </div>
+        <button
+          @click="adivinar"
+          :disabled="!jugando"
+          class="h-12 px-8 rounded-lg bg-emerald-600 text-lg font-semibold hover:bg-emerald-500 active:scale-95 transition focus:outline-none focus:ring-2 focus:ring-emerald-400"
+        >
+          Enviar
+        </button>
+      </div>
     </div>
+  </div>
 </template>
 <script setup>
+import { imagenes } from '@/stores/imagenes'
 import { ref, computed, onMounted } from 'vue'
 const mobileMenuOpen = ref(false)
-const eleccionJugador = ref(null)
 const eleccionPC = ref(null)
-const jugando=false;
-const palabraClave=ref(null);
-const palabras = [
-    "otorrinolaringologia", "perro"
-    , "gato", "casa", "iguana"];
-function jugar(){
-
+const jugando = ref(false)
+const palabraClave = ref('')
+const letrasAdivinadas = ref([])
+const intentosFallidos = ref(1)
+const maxIntentos = 7
+const eleccionJugador = ref('')
+const palabras = ['otorrinolaringologia', 'perro', 'gato', 'casa', 'iguana']
+function jugar() {
+  const palabras = ['otorrinolaringologia', 'perro', 'gato', 'casa', 'iguana']
+  palabraClave.value = palabras[Math.floor(Math.random() * palabras.length)]
+  letrasAdivinadas.value = []
+  intentosFallidos.value = 1
+  jugando.value = true
 }
 function adivinar() {
-    eleccionJugador.value
-    
+  const letra = eleccionJugador.value?.toLowerCase()
+  if (!letra || letrasAdivinadas.value.includes(letra)) return
+
+  if (palabraClave.value.includes(letra)) {
+    letrasAdivinadas.value.push(letra)
+  } else {
+    intentosFallidos.value++
+  }
+
+  eleccionJugador.value = ''
 }
 const resultado = computed(() => {
-    if (!eleccionJugador.value || !eleccionPC.value) return ''
+  if (!jugando.value) return ''
 
-    if (eleccionJugador.value == eleccionPC.value) return 'Ganaste'
-    else return 'Perdiste'
+  const gano = palabraClave.value.split('').every((letra) => letrasAdivinadas.value.includes(letra))
+
+  if (gano) return 'Ganaste'
+
+  if (intentosFallidos.value >= maxIntentos) return 'Perdiste'
+
+  return ''
 })
+const palabraMostrada = computed(() =>
+  palabraClave.value
+    .split('')
+    .map((letra) => (letrasAdivinadas.value.includes(letra) ? letra : '_')),
+)
 </script>

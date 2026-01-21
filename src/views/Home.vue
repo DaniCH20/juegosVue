@@ -9,7 +9,10 @@
       <a href="https://tailwindcss.com/" class="text-blue-600 hover:underline">Tailwind</a>
       para el diseño.
     </p>
-    <p>Selecciona un juego del menu para comenzar a jugar.</p>
+    <p>
+      Selecciona un juego del menu para comenzar a jugar.Como proyecto de personal no se vera de
+      manera muy profesional ,habra varios errores para solucionar y muchas opciones por implementar
+    </p>
   </div>
 </template>
 

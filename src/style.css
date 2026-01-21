@@ -45,3 +45,11 @@
     animation: girar 2s linear infinite;
   }
 }
+.nav-card {
+  @apply block rounded-lg px-4 py-2 text-white font-medium
+         hover:bg-white/10 transition;
+}
+
+.nav-card-active {
+  @apply bg-white/20;
+}

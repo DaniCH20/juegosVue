@@ -15,64 +15,102 @@ const mobileMenuOpen = ref(false)
     </header>
 
     <!-- Navigation -->
-    <nav
-      class="top-0 left-0 right-0 bg-gradient-to-r from-[#3d6b79] to-[#4a7d8a] px-6 md:px-8 py-4 flex justify-between items-center shadow-lg z-[1000]"
-    >
-      <!-- Logo + hamburguesa -->
-      <div class="flex items-center justify-between w-full md:w-auto">
-        <img src="/img/pc.png" alt="Centro Cívico" class="h-14 w-auto bg-white rounded-full p-1" />
+    <nav class="sticky top-0 z-50 bg-gradient-to-r from-[#3d6b79] to-[#4a7d8a] shadow-lg">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+        <div class="flex items-center justify-between py-4">
+          <!-- Logo + hamburguesa -->
+          <div class="flex items-center justify-between w-full md:w-auto">
+            <img
+              src="/img/pc.png"
+              alt="Centro Cívico"
+              class="h-12 w-auto bg-white rounded-full p-1"
+            />
 
-        <!-- Botón móvil -->
-        <button
-          @click="mobileMenuOpen = !mobileMenuOpen"
-          class="md:hidden flex flex-col gap-1.5"
-          aria-label="Menu"
-        >
-          <span
-            :class="[
-              'w-6 h-0.5 bg-white transition-all',
-              mobileMenuOpen && 'rotate-45 translate-y-2',
-            ]"
-          />
-          <span :class="['w-6 h-0.5 bg-white transition-all', mobileMenuOpen && 'opacity-0']" />
-          <span
-            :class="[
-              'w-6 h-0.5 bg-white transition-all',
-              mobileMenuOpen && '-rotate-45 -translate-y-2',
-            ]"
-          />
-        </button>
-      </div>
+            <button
+              @click="mobileMenuOpen = !mobileMenuOpen"
+              class="md:hidden ml-4 flex flex-col gap-1.5"
+              aria-label="Menu"
+            >
+              <span
+                :class="[
+                  'w-6 h-0.5 bg-white transition-all',
+                  mobileMenuOpen && 'rotate-45 translate-y-2',
+                ]"
+              />
+              <span :class="['w-6 h-0.5 bg-white transition-all', mobileMenuOpen && 'opacity-0']" />
+              <span
+                :class="[
+                  'w-6 h-0.5 bg-white transition-all',
+                  mobileMenuOpen && '-rotate-45 -translate-y-2',
+                ]"
+              />
+            </button>
+          </div>
 
-      <!-- Menú -->
-      <div
-        :class="[
-          'md:flex md:items-center md:gap-8',
-          'absolute md:static left-0 right-0 top-full',
-          mobileMenuOpen
-            ? 'flex flex-col bg-gradient-to-b from-[#3d6b79] to-[#2d5465] shadow-lg p-6 gap-4'
-            : 'hidden',
-        ]"
-      >
-        <router-link to="/" class="nav-card" @click="mobileMenuOpen = false"> Inicio </router-link>
-        <router-link to="/ppt" class="nav-card" active-class="nav-card-active">
-          🪨 Piedra, Papel o Tijera
-        </router-link>
-        <router-link to="/adivina" class="nav-card" active-class="nav-card-active">
-          🔢 Adivina el número
-        </router-link>
-        <router-link to="/ruleta" class="nav-card" active-class="nav-card-active">
-          🎡 Ruleta
-        </router-link>
-        <router-link to="/michi" class="nav-card" active-class="nav-card-active">
-          ❌⭕ 3 en raya
-        </router-link>
-        <router-link to="/sobrevive" class="nav-card" active-class="nav-card-active">
-          Sobrevive
-        </router-link>
-        <router-link to="/ahorcado" class="nav-card" active-class="nav-card-active">
-          Ahorcado
-        </router-link>
+          <!-- Menú -->
+          <div
+            :class="[
+              'md:flex md:items-center md:gap-6',
+              'absolute md:static left-0 right-0 top-full',
+              'transition-all duration-300 ease-out',
+              mobileMenuOpen
+                ? 'flex flex-col bg-gradient-to-b from-[#3d6b79] to-[#2d5465] shadow-lg px-6 py-6 gap-4 opacity-100 translate-y-0'
+                : 'hidden md:flex opacity-0 md:opacity-100 -translate-y-4 md:translate-y-0',
+            ]"
+          >
+            <router-link to="/" class="nav-card" @click="mobileMenuOpen = false">
+              Inicio
+            </router-link>
+            <router-link
+              to="/ppt"
+              class="nav-card"
+              active-class="nav-card-active"
+              @click="mobileMenuOpen = false"
+            >
+              🪨 Piedra, Papel o Tijera
+            </router-link>
+            <router-link
+              to="/adivina"
+              class="nav-card"
+              active-class="nav-card-active"
+              @click="mobileMenuOpen = false"
+            >
+              🔢 Adivina el número
+            </router-link>
+            <router-link
+              to="/ruleta"
+              class="nav-card"
+              active-class="nav-card-active"
+              @click="mobileMenuOpen = false"
+            >
+              🎡 Ruleta
+            </router-link>
+            <router-link
+              to="/michi"
+              class="nav-card"
+              active-class="nav-card-active"
+              @click="mobileMenuOpen = false"
+            >
+              ❌⭕ 3 en raya
+            </router-link>
+            <router-link
+              to="/sobrevive"
+              class="nav-card"
+              active-class="nav-card-active"
+              @click="mobileMenuOpen = false"
+            >
+              Sobrevive
+            </router-link>
+            <router-link
+              to="/ahorcado"
+              class="nav-card"
+              active-class="nav-card-active"
+              @click="mobileMenuOpen = false"
+            >
+              Ahorcado
+            </router-link>
+          </div>
+        </div>
       </div>
     </nav>
 
