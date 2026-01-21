@@ -64,7 +64,8 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3">
               <div>
-                <img src="/img/like.png" class="w-8 h-8" alt="Reputacion" />
+                <img v-if="jugador.reputacion>=0" src="/img/like.png" class="w-10 h-10" alt="Reputacion" />
+                <img v-if="jugador.reputacion<0" src="/img/dislike.png" class="w-10 h-10" alt="Reputacion" />
               </div>
               <div>
                 <p class="text-sm text-gray-400">Reputacion</p>
@@ -340,7 +341,9 @@ const transiciones = [
   { id: 101, texto: 'Entrar a la tienda', idhistoria: 3 },
   { id: 102, texto: 'Preguntar cómo salir de aquí', idhistoria: 4 },
   { id: 103, texto: 'Salir de la tienda y buscar opciones', idhistoria: 5 },
-  { id: 200, texto: 'Ir al paradero de combis', idhistoria: 8 },
+  { id: 200, texto: 'Ir al paradero de combis', idhistoria: 8 ,efectos:{ubicacion:'Paradero'}},
+  { id: 300, texto: 'Volver al mercado', idhistoria: 20 ,efectos:{ubicacion:'Mercado'}},
+  { id: 400, texto: 'Volver al parque', idhistoria: 12 ,efectos:{ubicacion:'Parque'}},
 ]
 
 // Efecto de máquina de escribir para historias
@@ -413,6 +416,9 @@ const saltarAnimacionFinal = () => {
 
 // Función para aplicar efectos
 function aplicarEfectos(efectos) {
+  if(efectos.dinero==0){
+    jugador.value.dinero =0;
+  }
   if (efectos.dinero) {
     jugador.value.dinero += efectos.dinero
     jugador.value.dinero = Math.max(0, jugador.value.dinero)

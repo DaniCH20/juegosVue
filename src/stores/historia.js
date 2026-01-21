@@ -116,8 +116,8 @@ export const history = ref([
   {
     id: 22,
     texto:
-      'Has completado el trabajo. Te duele la espalda pero tienes dinero extra en el bolsillo.',
-    decisiones: [200],
+      'El emoliente estaba delicioso y caliente lo que te da mas energias ',
+    decisiones: [300],
   },
   {
     id: 27,
@@ -127,8 +127,8 @@ export const history = ref([
   },
   {
     id: 28,
-    texto: 'Recoges botellas por un rato y las vendes. No es mucho, pero es dinero honesto.',
-    decisiones: [200],
+    texto: 'Recoges botellas por un rato y las vendes.No es mucho pero es dinero honesto , Mientras que sigues buscando te encuentras con una billetera con dinero y documentos',
+    decisiones: [29,30],
   },
   {
     id: 32,
@@ -203,7 +203,7 @@ export const history = ref([
   },
   {
     id: 51,
-    texto: 'Encuentras al dueño de la billetera. Está tan agradecido que te da una recompensa.',
+    texto: 'Encuentras al dueño de la billetera. Está tan agradecido que te da una recompensa....  ...  ...  ...  ...              Las gracias.',
     decisiones: [200],
   },
   {

@@ -102,9 +102,9 @@ export const decisions = ref([
   },
   {
     id: 14,
-    texto: 'Vender comida informalmente',
+    texto: 'Comprar un Emoliente',
     idhistoria: 22,
-    efectos: { dinero: 6, energia: -20, tiempo: 1.5 },
+    efectos: { dinero: -3, energia: 20, tiempo: 1.5 },
   },
   {
     id: 15,
@@ -132,7 +132,7 @@ export const decisions = ref([
     id: 7,
     texto: 'Dormirte para que pase más tiempo',
     idhistoria: 11,
-    efectos: { energia: 20, tiempo: 2 },
+    efectos: { energia: 20, tiempo: 2 ,dinero:0},
   },
   {
     id: 8,
@@ -221,7 +221,7 @@ export const decisions = ref([
     id: 27,
     texto: 'Negarte educadamente y alejarte',
     idhistoria: 39,
-    efectos: { tiempo: 0.25, reputacion: 5 },
+    efectos: { tiempo: 0.25, reputacion: -5 },
   },
   {
     id: 28,
@@ -243,7 +243,7 @@ export const decisions = ref([
     id: 30,
     texto: 'Buscar al dueño de la billetera',
     idhistoria: 51,
-    efectos: { dinero: 10, reputacion: 10, tiempo: 1 },
+    efectos: { reputacion: 10, tiempo: 1 },
   },
   {
     id: 31,
