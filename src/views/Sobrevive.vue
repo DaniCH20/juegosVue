@@ -60,7 +60,7 @@
           </div>
         </div>
         <!-- Reputacion -->
-        <div class="bg-gray-800 rounded-xl p-4 border-2 border-blue-500 shadow-lg">
+        <div class="bg-gray-800 rounded-xl p-4 border-2 border-yellow-500 shadow-lg">
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3">
               <div>
@@ -240,7 +240,7 @@
             </h2>
 
             <div class="bg-gray-900 rounded-xl p-6 mb-6 border border-gray-700">
-              <p class="text-lg leading-relaxed mb-6">{{ finalActual.descripcion }}</p>
+              <p class="text-lg leading-relaxed mb-6">{{ textoFinalAnimado }}<span v-if="escribiendoFinal" class="blinking-cursor">|</span></p>
               <div class="grid grid-cols-2 gap-4 text-left">
                 <div class="bg-gray-800 p-4 rounded-lg">
                   <p class="text-sm text-gray-400">Dinero final</p>
@@ -327,9 +327,12 @@ const decisionDestacada = ref(null)
 
 // Variables para el efecto de máquina de escribir
 const textoAnimado = ref('')
+const textoFinalAnimado = ref('')
 const escribiendo = ref(false)
+const escribiendoFinal = ref(false)
 let intervaloEscritura = null
-const velocidadEscritura = 30 // milisegundos por carácter
+let intervaloEscrituraFinal = null
+const velocidadEscritura = 50 // milisegundos por carácter
 
 // Decisiones de transición
 const transiciones = [
@@ -340,7 +343,7 @@ const transiciones = [
   { id: 200, texto: 'Ir al paradero de combis', idhistoria: 8 },
 ]
 
-// Efecto de máquina de escribir
+// Efecto de máquina de escribir para historias
 const iniciarEfectoMaquina = (textoCompleto) => {
   // Limpiar intervalo anterior si existe
   if (intervaloEscritura) {
@@ -364,6 +367,30 @@ const iniciarEfectoMaquina = (textoCompleto) => {
   }, velocidadEscritura)
 }
 
+// Efecto de máquina de escribir para finales
+const iniciarEfectoMaquinaFinal = (textoCompleto) => {
+  // Limpiar intervalo anterior si existe
+  if (intervaloEscrituraFinal) {
+    clearInterval(intervaloEscrituraFinal)
+  }
+
+  textoFinalAnimado.value = ''
+  escribiendoFinal.value = true
+
+  let indice = 0
+
+  intervaloEscrituraFinal = setInterval(() => {
+    if (indice < textoCompleto.length) {
+      textoFinalAnimado.value += textoCompleto.charAt(indice)
+      indice++
+    } else {
+      clearInterval(intervaloEscrituraFinal)
+      intervaloEscrituraFinal = null
+      escribiendoFinal.value = false
+    }
+  }, 100)
+}
+
 // Saltar animación
 const saltarAnimacion = () => {
   if (intervaloEscritura) {
@@ -372,6 +399,16 @@ const saltarAnimacion = () => {
   }
   textoAnimado.value = historiaActual.value.texto
   escribiendo.value = false
+}
+
+// Saltar animación del final
+const saltarAnimacionFinal = () => {
+  if (intervaloEscrituraFinal) {
+    clearInterval(intervaloEscrituraFinal)
+    intervaloEscrituraFinal = null
+  }
+  textoFinalAnimado.value = finalActual.value.descripcion
+  escribiendoFinal.value = false
 }
 
 // Función para aplicar efectos
@@ -534,6 +571,8 @@ function verificarFinales() {
     if (final.condiciones(jugador.value)) {
       finalActual.value = final
       mostrandoFinal.value = true
+      // Iniciar efecto de máquina de escribir para el final
+      iniciarEfectoMaquinaFinal(final.descripcion)
       break
     }
   }
@@ -550,6 +589,15 @@ function agregarAlHistorial(item, esDecision) {
 }
 
 function reiniciarJuego() {
+  // Limpiar intervalos antes de reiniciar
+  if (intervaloEscritura) {
+    clearInterval(intervaloEscritura)
+    intervaloEscritura = null
+  }
+  if (intervaloEscrituraFinal) {
+    clearInterval(intervaloEscrituraFinal)
+    intervaloEscrituraFinal = null
+  }
   comenzarJuego()
 }
 
@@ -561,6 +609,9 @@ function verHistorial() {
 onUnmounted(() => {
   if (intervaloEscritura) {
     clearInterval(intervaloEscritura)
+  }
+  if (intervaloEscrituraFinal) {
+    clearInterval(intervaloEscrituraFinal)
   }
 })
 

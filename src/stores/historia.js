@@ -208,7 +208,7 @@ export const history = ref([
   },
   {
     id: 52,
-    texto: 'Ayudas al skater. Sus amigos te agradecen y uno te ofrece llevarte a su barrio.',
+    texto: 'Ayudas al skater. Sus amigos te agradecen y uno te ofrece llevarte al paradero.',
     decisiones: [200],
   },
   {
