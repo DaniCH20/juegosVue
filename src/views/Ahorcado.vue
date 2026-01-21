@@ -36,7 +36,7 @@
           'text-red-400': resultado.includes('Perdiste'),
         }"
       >
-        {{ resultado }}
+        <button @click="reiniciar()">{{ resultado }}</button>
       </div>
       <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
         <input
@@ -96,6 +96,11 @@ function jugar() {
   letrasAdivinadas.value = []
   intentosFallidos.value = 1
   jugando.value = true
+}
+function reiniciar() {
+  letrasAdivinadas.value = []
+  intentosFallidos.value = 1
+  jugando.value = false
 }
 function adivinar() {
   const letra = eleccionJugador.value?.toLowerCase()
