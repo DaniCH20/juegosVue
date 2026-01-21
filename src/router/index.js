@@ -5,6 +5,7 @@ import Michi from '../views/Michi.vue'
 import PPT from '../views/PPT.vue'
 import Adivina from '../views/Adivina.vue'
 import Sobrevive from '../views/Sobrevive.vue'
+import Ahorcado from '../views/Ahorcado.vue'
 
 const routes = [
   {
@@ -30,6 +31,10 @@ const routes = [
   {
     path: '/sobrevive',
     component: Sobrevive,
+  },
+  {
+    path: '/ahorcado',
+    component: Ahorcado,
   },
 ]
 

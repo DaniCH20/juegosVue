@@ -70,6 +70,9 @@ const mobileMenuOpen = ref(false)
         <router-link to="/sobrevive" class="nav-card" active-class="nav-card-active">
           Sobrevive
         </router-link>
+        <router-link to="/ahorcado" class="nav-card" active-class="nav-card-active">
+          Ahorcado
+        </router-link>
       </div>
     </nav>
 

@@ -47,7 +47,7 @@ const eleccionJugador = ref(null)
 const eleccionPC = ref(null)
 function adivinar() {
   eleccionJugador.value
-  eleccionPC.value = [Math.floor(Math.random() * 10)]
+  eleccionPC.value = Math.floor(Math.random() * 10)
 }
 const resultado = computed(() => {
   if (!eleccionJugador.value || !eleccionPC.value) return ''

@@ -5,28 +5,22 @@
 
       <div class="flex justify-center gap-12 mb-12">
         <table class="grid grid-cols-3">
-          <td v-for="(opcion, index) in opciones" :key="index" class="bg-white shadow-lg p-8">
-            <button
-              v-if="opcion === 0"
-              @click="marcar(index)"
-              class="text-black p-5 hover:scale-110 transition"
-            ></button>
-
-            <span v-else class="text-black text-3xl font-bold">
-              {{ opcion }}
-            </span>
+          <td v-for="(opcion, index) in opciones" :key="index" class="bg-white shadow-lg border-4 border-black">
+            <button @click="marcar(index)" :disabled="juegoTerminado || opcion !== 0"
+              class="text-black text-4xl font-bold p-20 transition" :class="{
+                'cursor-not-allowed opacity-50': juegoTerminado,
+                'hover:cursor-pointer': !juegoTerminado
+              }">
+              {{ opcion === 0 ? '' : opcion }}
+            </button>
           </td>
         </table>
       </div>
 
-      <div
-        v-if="resultado !== 'Procesando...'"
-        class="text-center text-3xl font-bold mt-6"
-        :class="{
-          'text-green-400': resultado.includes('Ganaste'),
-          'text-red-400': resultado.includes('Perdiste'),
-        }"
-      >
+      <div v-if="resultado !== 'Procesando...'" class="text-center text-3xl font-bold mt-6" :class="{
+        'text-green-400': resultado.includes('Ganaste'),
+        'text-red-400': resultado.includes('Perdiste'),
+      }">
         <h3>{{ resultado }}</h3>
         <button @click="reiniciar()" id="button">Deseas volver a jugar</button>
       </div>
@@ -37,12 +31,8 @@
 import { ref, computed, onMounted } from 'vue'
 const opciones = ref([0, 0, 0, 0, 0, 0, 0, 0, 0])
 const pc = ref([])
-function marcar(index) {
-  if (opciones.value[index] !== 0) return // impedir sobrescribir
-  opciones.value[index] = 'X'
-  // Lógica PC
-  hacerJugadaPC()
-}
+const juegoTerminado = computed(() => resultado.value !== 'Procesando...')
+
 function hacerJugadaPC() {
   let availableIndices = opciones.value
     .map((val, idx) => (val === 0 ? idx : null))
@@ -86,5 +76,13 @@ const resultado = computed(() => {
 })
 function reiniciar() {
   opciones.value = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+}
+
+function marcar(index) {
+  if (juegoTerminado.value) return
+  if (opciones.value[index] !== 0) return
+
+  opciones.value[index] = 'X'
+  hacerJugadaPC()
 }
 </script>
