@@ -116,7 +116,7 @@ export const decisions = ref([
     id: 16,
     texto: 'Recoger botellas para reciclar',
     idhistoria: 28,
-    efectos: { dinero: 3, energia: -15, tiempo: 1, reputacion:5},
+    efectos: { dinero: 3, energia: -15, tiempo: 1, reputacion: 5 },
   },
 
   // =========================
@@ -132,7 +132,7 @@ export const decisions = ref([
     id: 7,
     texto: 'Dormirte para que pase más tiempo',
     idhistoria: 11,
-    efectos: { energia: 20, tiempo: 2 ,dinero:0},
+    efectos: { energia: 20, tiempo: 2, dinero: 0 },
   },
   {
     id: 8,
@@ -286,7 +286,7 @@ export const decisions = ref([
     id: 35,
     texto: 'Ayudar a los heridos del accidente',
     idhistoria: 44,
-    efectos: { tiempo: 1, reputacion: 15 ,reputacion:10},
+    efectos: { tiempo: 1, reputacion: 15, reputacion: 10 },
   },
   {
     id: 36,
@@ -298,7 +298,7 @@ export const decisions = ref([
     id: 37,
     texto: 'Ayudar con el inventario de la tienda',
     idhistoria: 48,
-    efectos: { dinero: 5, tiempo: 1 ,reputacion:5},
+    efectos: { dinero: 5, tiempo: 1, reputacion: 5 },
   },
   {
     id: 38,
@@ -339,13 +339,25 @@ export const decisions = ref([
   {
     id: 44,
     texto: 'Ir donde los niños ',
-    idhistoria: 201,
+    idhistoria: 59,
     efectos: { tiempo: 0.25, energia: -10 },
   },
   {
     id: 45,
     texto: 'Ir donde los niños ',
     idhistoria: 201,
+    efectos: { tiempo: 0.25, energia: -10 },
+  },
+  {
+    id: 46,
+    texto: 'X = 2 ',
+    idhistoria: 60,
+    efectos: { tiempo: 0.25, energia: -10 },
+  },
+  {
+    id: 47,
+    texto: ' Avion ',
+    idhistoria: 61,
     efectos: { tiempo: 0.25, energia: -10 },
   },
 ])

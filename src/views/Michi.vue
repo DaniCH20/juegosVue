@@ -5,22 +5,34 @@
 
       <div class="flex justify-center gap-12 mb-12">
         <table class="grid grid-cols-3">
-          <td v-for="(opcion, index) in opciones" :key="index" class="bg-white shadow-lg border-4 border-black">
-            <button @click="marcar(index)" :disabled="juegoTerminado || opcion !== 0"
-              class="text-black text-4xl font-bold p-20 transition" :class="{
+          <td
+            v-for="(opcion, index) in opciones"
+            :key="index"
+            class="bg-white shadow-lg border-4 border-black"
+          >
+            <button
+              @click="marcar(index)"
+              :disabled="juegoTerminado || opcion !== 0"
+              class="text-black text-4xl font-bold p-20 transition"
+              :class="{
                 'cursor-not-allowed opacity-50': juegoTerminado,
-                'hover:cursor-pointer': !juegoTerminado
-              }">
+                'hover:cursor-pointer': !juegoTerminado,
+              }"
+            >
               {{ opcion === 0 ? '' : opcion }}
             </button>
           </td>
         </table>
       </div>
 
-      <div v-if="resultado !== 'Procesando...'" class="text-center text-3xl font-bold mt-6" :class="{
-        'text-green-400': resultado.includes('Ganaste'),
-        'text-red-400': resultado.includes('Perdiste'),
-      }">
+      <div
+        v-if="resultado !== 'Procesando...'"
+        class="text-center text-3xl font-bold mt-6"
+        :class="{
+          'text-green-400': resultado.includes('Ganaste'),
+          'text-red-400': resultado.includes('Perdiste'),
+        }"
+      >
         <h3>{{ resultado }}</h3>
         <button @click="reiniciar()" id="button">Deseas volver a jugar</button>
       </div>
@@ -41,7 +53,21 @@ function hacerJugadaPC() {
   if (availableIndices.length === 0) return // No hay movimientos disponibles
 
   let randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)]
-  opciones.value[randomIndex] = 'O'
+  if (opciones.value[0] == 'O' && opciones.value[2] == 'O' && opciones.value[1] == 0) {
+    opciones.value[1] = 'O'
+  } else if (opciones.value[0] == 'X' && opciones.value[2] == 'X' && opciones.value[1] == 0) {
+    opciones.value[1] = 'O'
+  } else if (opciones.value[0] == 'X' && opciones.value[6] == 'X' && opciones.value[3] == 0) {
+    opciones.value[3] = 'O'
+  } else if (opciones.value[0] == 'X' && opciones.value[8] == 'X' && opciones.value[4] == 0) {
+    opciones.value[4] = 'O'
+  } else if (opciones.value[8] == 'X' && opciones.value[2] == 'X' && opciones.value[5] == 0) {
+    opciones.value[5] = 'O'
+  } else if (opciones.value[8] == 'X' && opciones.value[6] == 'X' && opciones.value[5] == 0) {
+    opciones.value[5] = 'O'
+  } else {
+    opciones.value[randomIndex] = 'O'
+  }
 }
 const resultado = computed(() => {
   if (

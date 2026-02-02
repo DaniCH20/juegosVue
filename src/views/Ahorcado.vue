@@ -23,8 +23,8 @@
           v-for="(letra, index) in palabraMostrada"
           :key="index"
           class="w-10 sm:w-12 h-12 flex items-center justify-center border-b-4 border-slate-300 text-2xl sm:text-3xl font-bold"
-        >
-          {{ letra }}
+          ><p v-if="letra == ''"></p>
+          <p v-else>{{ letra }}</p>
         </span>
       </div>
 
@@ -84,12 +84,12 @@ function jugar() {
     'tiburon',
     'microprocesador',
     'charizard',
-    'megacaballero',
-    'leftfordead',
-    'fivenightsatfreddys',
+    'mega caballero',
+    'left for dead',
+    'five nights at freddys',
     'contratenme',
     'chamba',
-    'peruesclave',
+    'peru es clave',
     'ninachay',
   ]
   palabraClave.value = palabras[Math.floor(Math.random() * palabras.length)]

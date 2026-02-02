@@ -115,8 +115,7 @@ export const history = ref([
   },
   {
     id: 22,
-    texto:
-      'El emoliente estaba delicioso y caliente lo que te da mas energias ',
+    texto: 'El emoliente estaba delicioso y caliente lo que te da mas energias ',
     decisiones: [300],
   },
   {
@@ -127,8 +126,9 @@ export const history = ref([
   },
   {
     id: 28,
-    texto: 'Recoges botellas por un rato y las vendes.No es mucho pero es dinero honesto , Mientras que sigues buscando te encuentras con una billetera con dinero y documentos',
-    decisiones: [29,30],
+    texto:
+      'Recoges botellas por un rato y las vendes.No es mucho pero es dinero honesto , Mientras que sigues buscando te encuentras con una billetera con dinero y documentos',
+    decisiones: [29, 30],
   },
   {
     id: 32,
@@ -203,7 +203,8 @@ export const history = ref([
   },
   {
     id: 51,
-    texto: 'Encuentras al dueño de la billetera. Está tan agradecido que te da una recompensa....  ...  ...  ...  ...              Las gracias.',
+    texto:
+      'Encuentras al dueño de la billetera. Está tan agradecido que te da una recompensa....  ...  ...  ...  ...              Las gracias.',
     decisiones: [200],
   },
   {
@@ -242,5 +243,21 @@ export const history = ref([
     texto:
       'Al acercarte a los skaters presencias un accidente uno de los jovenes se cae y se lastima que haces .',
     decisiones: [27, 31],
+  },
+  {
+    id: 59,
+    texto:
+      'Te encuentra con un Estudiante y te pregunta cual es el valor de X en esta ecuacion X + 9 = 11.',
+    decisiones: [46, 47],
+  },
+  {
+    id: 60,
+    texto: 'El estudiante se decepciona por que no era lo que esperaba .',
+    decisiones: [400],
+  },
+  {
+    id: 61,
+    texto: 'El estudiante se rie de tu respuesta .',
+    decisiones: [400],
   },
 ])

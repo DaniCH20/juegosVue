@@ -1,0 +1,32 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Print welcome message
+        run: echo "🎉 Comenzando CI para ${{ github.repository }}"
+
+      - name: Show environment info
+        run: |
+          echo "Branch: ${{ github.ref }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Actor: ${{ github.actor }}"
+
+      - name: Success message
+        if: success()
+        run: echo "✅ Todos los pasos completados exitosamente!"
+
+      - name: Failure message
+        if: failure()
+        run: echo "❌ Algo salió mal en el workflow"

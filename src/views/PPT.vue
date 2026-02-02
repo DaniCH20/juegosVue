@@ -59,7 +59,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const opciones = ['piedra', 'papel', 'tijera']
+const opciones = ['piedra', 'papel', 'tijera', 'agua', 'aire', 'fuego', 'esponja']
 
 const eleccionJugador = ref(null)
 const eleccionPC = ref(null)
@@ -77,7 +77,15 @@ const resultado = computed(() => {
   const ganaJugador =
     (eleccionJugador.value === 'piedra' && eleccionPC.value === 'tijera') ||
     (eleccionJugador.value === 'papel' && eleccionPC.value === 'piedra') ||
-    (eleccionJugador.value === 'tijera' && eleccionPC.value === 'papel')
+    (eleccionJugador.value === 'tijera' && eleccionPC.value === 'papel') ||
+    (eleccionJugador.value === 'agua' && eleccionPC.value === 'papel') ||
+    (eleccionJugador.value === 'agua' && eleccionPC.value === 'piedra') ||
+    (eleccionJugador.value === 'viento' && eleccionPC.value === 'papel') ||
+    (eleccionJugador.value === 'viento' && eleccionPC.value === 'agua') ||
+    (eleccionJugador.value === 'tijera' && eleccionPC.value === 'viento') ||
+    (eleccionJugador.value === 'calor' && eleccionPC.value === 'papel') ||
+    (eleccionJugador.value === 'calor' && eleccionPC.value === 'tijera') ||
+    (eleccionJugador.value === 'agua' && eleccionPC.value === 'calor')
 
   return ganaJugador ? '¡Ganaste! ' : '¡Perdiste! '
 })
