@@ -1,4 +1,5 @@
-name: CI Pipeline
+# .github/workflows/ci.yml
+name: Vue.js CI
 
 on:
   push:
@@ -6,27 +7,58 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  NODE_VERSION: '20'
+
 jobs:
-  build-and-test:
+  lint-and-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 10 # Evita jobs que se quedan colgados
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Print welcome message
-        run: echo "🎉 Comenzando CI para ${{ github.repository }}"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm' # IMPORTANTE: Cachea node_modules
 
-      - name: Show environment info
-        run: |
-          echo "Branch: ${{ github.ref }}"
-          echo "Commit: ${{ github.sha }}"
-          echo "Actor: ${{ github.actor }}"
+      - name: Install dependencies
+        run: npm ci # Usa ci en lugar de install para builds consistentes
 
-      - name: Success message
+      - name: Run linter
+        run: npm run lint # Asegúrate que tu package.json tenga este script
+
+      - name: Run tests
+        run: npm test # O npm run test:unit si usas Vue Test Utils
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-build
+          path: dist/
+          retention-days: 7
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          directory: ./coverage # Si generas coverage reports
+
+      - name: Success notification
         if: success()
-        run: echo "✅ Todos los pasos completados exitosamente!"
+        run: |
+          echo "✅ CI completado exitosamente!"
+          echo "✅ Lint: OK"
+          echo "✅ Tests: OK"
+          echo "✅ Build: OK"
 
-      - name: Failure message
+      - name: Failure notification
         if: failure()
-        run: echo "❌ Algo salió mal en el workflow"
+        run: |
+          echo "❌ CI falló"
+          echo "Revisa los logs para más detalles"
