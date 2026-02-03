@@ -1,64 +1,20 @@
-# .github/workflows/ci.yml
-name: Vue.js CI
+name: Ejemplo CI
 
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-
-env:
-  NODE_VERSION: '20'
+on: [push] # Se ejecuta en cada push
 
 jobs:
-  lint-and-test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10 # Evita jobs que se quedan colgados
-
+  build:
+    runs-on: ubuntu-latest # Máquina virtual
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Descargar código
+        uses: actions/checkout@v3 # Acción para clonar el repo
+        
+      - name: Instalar entorno
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm' # IMPORTANTE: Cachea node_modules
-
-      - name: Install dependencies
-        run: npm ci # Usa ci en lugar de install para builds consistentes
-
-      - name: Run linter
-        run: npm run lint # Asegúrate que tu package.json tenga este script
-
-      - name: Run tests
-        run: npm test # O npm run test:unit si usas Vue Test Utils
-
-      - name: Build project
-        run: npm run build
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist-build
-          path: dist/
-          retention-days: 7
-
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
-        with:
-          directory: ./coverage # Si generas coverage reports
-
-      - name: Success notification
-        if: success()
+          node-version: '18'
+          
+      - name: Ejecutar pruebas
         run: |
-          echo "✅ CI completado exitosamente!"
-          echo "✅ Lint: OK"
-          echo "✅ Tests: OK"
-          echo "✅ Build: OK"
-
-      - name: Failure notification
-        if: failure()
-        run: |
-          echo "❌ CI falló"
-          echo "Revisa los logs para más detalles"
+          npm install
+          npm test
