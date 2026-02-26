@@ -15,7 +15,7 @@
         <img
           :src="`../img/ahorcado/ahorcado${intentosFallidos}.png`"
           :alt="palabraClave"
-          class="w-40 sm:w-52 md:w-64 object-contain"
+          class="w-100 h-100 sm:w-52 md:w-64 object-contain"
         />
       </div>
       <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8">
@@ -23,7 +23,7 @@
           v-for="(letra, index) in palabraMostrada"
           :key="index"
           class="w-10 sm:w-12 h-12 flex items-center justify-center border-b-4 border-slate-300 text-2xl sm:text-3xl font-bold"
-          ><p v-if="letra == ''"></p>
+          ><p v-if="letra == ' '"></p>
           <p v-else>{{ letra }}</p>
         </span>
       </div>
@@ -79,7 +79,7 @@ function jugar() {
     'gallina',
     'electrodomesticos',
     'automovil',
-    'estudiasonso',
+    'estudia sonso',
     'pikachu',
     'tiburon',
     'microprocesador',
@@ -91,8 +91,13 @@ function jugar() {
     'chamba',
     'peru es clave',
     'ninachay',
+    'electroencefalografista',
+    'Anticonstitucionalidad',
+    'ser o no ser',
+    'one two three four',
+    'pajaro que madruga se come la oruga',
   ]
-  palabraClave.value = palabras[Math.floor(Math.random() * palabras.length)]
+  palabraClave.value = palabras[Math.floor(Math.random() * palabras.length)].toLowerCase()
   letrasAdivinadas.value = []
   intentosFallidos.value = 1
   jugando.value = true
@@ -117,7 +122,9 @@ function adivinar() {
 const resultado = computed(() => {
   if (!jugando.value) return ''
 
-  const gano = palabraClave.value.split('').every((letra) => letrasAdivinadas.value.includes(letra))
+  const gano = palabraClave.value
+    .split('')
+    .every((letra) => letra === ' ' || letrasAdivinadas.value.includes(letra))
 
   if (gano) return 'Ganaste'
 
@@ -126,8 +133,9 @@ const resultado = computed(() => {
   return ''
 })
 const palabraMostrada = computed(() =>
-  palabraClave.value
-    .split('')
-    .map((letra) => (letrasAdivinadas.value.includes(letra) ? letra : '_')),
+  palabraClave.value.split('').map((letra) => {
+    if (letra === ' ') return ' ' // Mostrar espacio tal cual
+    return letrasAdivinadas.value.includes(letra) ? letra : '_'
+  }),
 )
 </script>

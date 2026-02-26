@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+  <div class="min-h-screen bg-gradient-to-br from-slate-500 via-slate-600 to-slate-500 text-white">
     <div class="container mx-auto px-6 py-10">
       <h1 class="text-4xl font-extrabold text-center mb-12">🪨📄✂ Piedra, Papel o Tijera</h1>
 
@@ -14,7 +14,7 @@
           <img
             :src="`/img/${opcion}.png`"
             :alt="opcion"
-            class="w-40 h-40 object-contain drop-shadow-lg"
+            class="w-50 h-50 object-contain drop-shadow-lg"
           />
           <span class="mt-3 font-bold capitalize group-hover:text-pink-400">
             {{ opcion }}
