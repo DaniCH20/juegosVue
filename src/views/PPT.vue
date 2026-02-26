@@ -30,6 +30,7 @@
             :src="eleccionJugador ? `/img/${eleccionJugador}.png` : '/img/tu.png'"
             class="w-40 h-40 object-contain"
           />
+          <h4>{{ eleccionJugador }}</h4>
         </div>
 
         <div class="flex flex-col items-center">
@@ -38,6 +39,7 @@
             :src="eleccionPC ? `/img/${eleccionPC}.png` : '/img/pc.png'"
             class="w-40 h-40 object-contain"
           />
+          <h4>{{ eleccionPC }}</h4>
         </div>
       </div>
 
@@ -60,33 +62,41 @@
 import { ref, computed } from 'vue'
 
 const opciones = ['piedra', 'papel', 'tijera', 'agua', 'aire', 'fuego', 'esponja']
-
+const reglas = {
+  piedra: ['tijera', 'esponja', 'fuego'],
+  papel: ['piedra', 'agua', 'aire'],
+  tijera: ['papel', 'esponja', 'aire'],
+  agua: ['fuego', 'piedra', 'tijera'],
+  aire: ['piedra', 'agua', 'fuego'],
+  fuego: ['tijera', 'esponja', 'papel'],
+  esponja: ['papel', 'agua', 'aire'],
+}
 const eleccionJugador = ref(null)
 const eleccionPC = ref(null)
-
-function escoger(valor) {
-  eleccionJugador.value = valor
-  eleccionPC.value = opciones[Math.floor(Math.random() * opciones.length)]
+const resultado = ref('')
+const cargando = ref(false)
+let interval
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-const resultado = computed(() => {
-  if (!eleccionJugador.value || !eleccionPC.value) return ''
+async function escoger(valor) {
+  eleccionJugador.value = valor
+  resultado.value = ''
+  cargando.value = true
 
-  if (eleccionJugador.value === eleccionPC.value) return 'Empate '
+  // Animación de barajar
+  interval = setInterval(() => {
+    eleccionPC.value = opciones[Math.floor(Math.random() * opciones.length)]
+  }, 100)
 
-  const ganaJugador =
-    (eleccionJugador.value === 'piedra' && eleccionPC.value === 'tijera') ||
-    (eleccionJugador.value === 'papel' && eleccionPC.value === 'piedra') ||
-    (eleccionJugador.value === 'tijera' && eleccionPC.value === 'papel') ||
-    (eleccionJugador.value === 'agua' && eleccionPC.value === 'papel') ||
-    (eleccionJugador.value === 'agua' && eleccionPC.value === 'piedra') ||
-    (eleccionJugador.value === 'viento' && eleccionPC.value === 'papel') ||
-    (eleccionJugador.value === 'viento' && eleccionPC.value === 'agua') ||
-    (eleccionJugador.value === 'tijera' && eleccionPC.value === 'viento') ||
-    (eleccionJugador.value === 'calor' && eleccionPC.value === 'papel') ||
-    (eleccionJugador.value === 'calor' && eleccionPC.value === 'tijera') ||
-    (eleccionJugador.value === 'agua' && eleccionPC.value === 'calor')
+  await delay(3000)
 
-  return ganaJugador ? '¡Ganaste! ' : '¡Perdiste! '
-})
+  clearInterval(interval)
+  eleccionPC.value = opciones[Math.floor(Math.random() * opciones.length)]
+
+  const ganaJugador = reglas[eleccionJugador.value]?.includes(eleccionPC.value)
+  resultado.value = ganaJugador ? '¡Ganaste!' : '¡Perdiste!'
+  cargando.value = false
+}
 </script>
